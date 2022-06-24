@@ -1,12 +1,12 @@
 [package]
-name = "seg"
+name = "segcache"
 version = "0.1.0"
-authors = ["Brian Martin <bmartin@twitter.com>"]
-edition = "2018"
+authors = ["Brian Martin <bmartin@twitter.com>", "Juncheng Yang <peter.waynechina@gmail.com>"]
 description = "segment-structured in-memory storage with eager expiration"
 homepage = "https://pelikan.io"
-repository = "https://github.com/twitter/pelikan"
+repository = "https://github.com/JunchengYTwitter/segcache"
 license = "Apache-2.0"
+workspace = "./"
 
 [[bench]]
 name = "benchmark"
@@ -26,14 +26,17 @@ default = []
 
 [dependencies]
 ahash = "0.7.2"
-common = { path = "../../common" }
-datapool = { path = "../datapool" }
-logger = { path = "../../logger" }
+common = { git = "https://github.com/twitter/pelikan", features=["common"] }
+datapool = { git = "https://github.com/twitter/pelikan", features=["datapool"] }
+logger = { git = "https://github.com/twitter/pelikan", features=["logger"]}
+storage-types = { git = "https://github.com/twitter/pelikan" }
+# datapool = { path = "../datapool" }
+# logger = { path = "../../logger" }
+# storage-types = { path = "../types" }
 memmap2 = "0.2.2"
 rand = { version = "0.8.3", features = ["small_rng", "getrandom"] }
 rand_chacha = { version = "0.3.0" }
 rand_xoshiro = { version = "0.6.0" }
-storage-types = { path = "../types" }
 thiserror = "1.0.24"
 
 [dependencies.rustcommon-metrics]
@@ -42,3 +45,7 @@ features = ["heatmap"]
 
 [dev-dependencies]
 criterion = "0.3.4"
+
+[lib]
+crate_type = ["cdylib"]
+
